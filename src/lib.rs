@@ -69,6 +69,7 @@
 #![cfg_attr(feature = "avr128db28", doc = "**avr128db28**,")]
 #![cfg_attr(feature = "avr128db32", doc = "**avr128db32**,")]
 #![cfg_attr(feature = "avr128db48", doc = "**avr128db48**,")]
+#![cfg_attr(feature = "avr128da64", doc = "**avr128da64**,")]
 //! and a few things which apply to AVR microcontrollers generally.
 //!
 #![cfg_attr(
@@ -146,6 +147,7 @@
 //! `avr128db28`,
 //! `avr128db32`,
 //! `avr128db48`,
+//! `avr128da64`,
 //!
 //! # How to use this crate?
 //!
@@ -336,6 +338,7 @@ compile_error!(
     * avr128db28
     * avr128db32
     * avr128db48
+    * avr128da64
     "
 );
 
@@ -484,3 +487,5 @@ pub use crate::devices::avr128db28;
 pub use crate::devices::avr128db32;
 #[cfg(feature = "avr128db48")]
 pub use crate::devices::avr128db48;
+#[cfg(feature = "avr128da64")]
+pub use crate::devices::avr128da64;
