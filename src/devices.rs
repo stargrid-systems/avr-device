@@ -423,6 +423,12 @@ pub mod avr128db48 {
     include!(concat!(env!("OUT_DIR"), "/pac/avr128db48.rs"));
 }
 
+/// [AVR128DB64](https://www.microchip.com/wwwproducts/en/AVR128DB64)
+#[cfg(feature = "avr128db64")]
+pub mod avr128db64 {
+    include!(concat!(env!("OUT_DIR"), "/pac/avr128db64.rs"));
+}
+
 /// [AVR128DA64](https://www.microchip.com/wwwproducts/en/AVR128DA64)
 #[cfg(feature = "avr128da64")]
 pub mod avr128da64 {
