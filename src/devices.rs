@@ -291,6 +291,12 @@ pub mod attiny404 {
     include!(concat!(env!("OUT_DIR"), "/pac/attiny404.rs"));
 }
 
+/// [ATtiny406](https://www.microchip.com/en-us/product/ATTINY406)
+#[cfg(feature = "attiny406")]
+pub mod attiny406 {
+    include!(concat!(env!("OUT_DIR"), "/pac/attiny406.rs"));
+}
+
 /// [ATtiny412](https://www.microchip.com/wwwproducts/en/ATtiny412)
 #[cfg(feature = "attiny412")]
 pub mod attiny412 {

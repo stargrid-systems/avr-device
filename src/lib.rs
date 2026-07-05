@@ -446,6 +446,8 @@ pub use crate::devices::attiny261a;
 pub use crate::devices::attiny402;
 #[cfg(feature = "attiny404")]
 pub use crate::devices::attiny404;
+#[cfg(feature = "attiny406")]
+pub use crate::devices::attiny406;
 #[cfg(feature = "attiny412")]
 pub use crate::devices::attiny412;
 #[cfg(feature = "attiny414")]
