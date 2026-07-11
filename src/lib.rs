@@ -226,6 +226,7 @@
 pub mod asm;
 pub mod interrupt;
 
+#[cfg(feature = "device-selected")]
 pub(crate) use generic::*;
 #[doc = r"Common register and bit access and modify traits"]
 pub mod generic {
@@ -271,7 +272,7 @@ pub use avr_device_macros::interrupt;
 #[cfg(feature = "rt")]
 pub use avr_device_macros::entry;
 
-#[cfg(not(feature = "device-selected"))]
+#[cfg(all(not(feature = "device-selected"), target_arch = "avr"))]
 compile_error!(
     "This crate requires you to specify your target chip as a feature.
 

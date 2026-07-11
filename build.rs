@@ -45,6 +45,15 @@ fn main() -> anyhow::Result<()> {
         .generate_vector(&svds)
         .context("failed to generate interrupt vector definitions")?;
 
+    if svds.is_empty() {
+        // No device feature selected, e.g. a host-side `cargo check`/`cargo doc`.
+        // Write an empty `generic.rs` so the `include!` in `lib.rs` resolves; the
+        // per-device modules are feature-gated out and never reach it.
+        code_generator
+            .write_empty_generic()
+            .context("failed to write empty generic module")?;
+    }
+
     for directive in cargo_directives {
         println!("{}", directive);
     }
@@ -77,7 +86,6 @@ impl InputFinder {
         Self::track_path(&patches_dir, cargo_directives)?;
 
         let mut inputs = BTreeMap::new();
-        let mut all_mcus = Vec::new();
         for result in fs::read_dir(&packs_dir)
             .map_err(io_error_in_path(&packs_dir))
             .context("could not scan vendor/ directory")?
@@ -101,7 +109,6 @@ impl InputFinder {
                     atdf_path.display()
                 ))?
                 .to_owned();
-            all_mcus.push(mcu_name.clone());
             if env::var_os(format!("CARGO_FEATURE_{}", mcu_name.to_uppercase())).is_none() {
                 continue;
             }
@@ -133,14 +140,6 @@ impl InputFinder {
                 },
             );
         }
-        if inputs.is_empty() {
-            return Err(anyhow::anyhow!(
-                "at least one MCU feature must be selected; choose from {}",
-                all_mcus.join(", ")
-            ))
-            .context("no crate-features for MCUs were selected");
-        }
-
         Ok(Self { inputs })
     }
 
@@ -337,6 +336,13 @@ macro_rules! __avr_device_trampoline {{
         let module = out_dir.join("pac");
         ensure_out_dir(&module).context("failed preparing PAC directory")?;
         Ok(Self { module })
+    }
+
+    pub fn write_empty_generic(&self) -> anyhow::Result<()> {
+        let generic_path = self.module.join("generic.rs");
+        fs::write(&generic_path, "")
+            .map_err(io_error_in_path(&generic_path))
+            .context("failed to write empty generic module")
     }
 }
 
