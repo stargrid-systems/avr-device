@@ -47,6 +47,7 @@
 #![cfg_attr(feature = "attiny261a", doc = "**attiny261a**,")]
 #![cfg_attr(feature = "attiny402", doc = "**attiny402**,")]
 #![cfg_attr(feature = "attiny404", doc = "**attiny404**,")]
+#![cfg_attr(feature = "attiny406", doc = "**attiny406**,")]
 #![cfg_attr(feature = "attiny412", doc = "**attiny412**,")]
 #![cfg_attr(feature = "attiny414", doc = "**attiny414**,")]
 #![cfg_attr(feature = "attiny416", doc = "**attiny416**,")]
@@ -126,6 +127,7 @@
 //! `attiny261a`,
 //! `attiny402`,
 //! `attiny404`,
+//! `attiny406`,
 //! `attiny412`,
 //! `attiny414`,
 //! `attiny416`,
@@ -318,6 +320,7 @@ compile_error!(
     * attiny261a
     * attiny402
     * attiny404
+    * attiny406
     * attiny412
     * attiny414
     * attiny416
